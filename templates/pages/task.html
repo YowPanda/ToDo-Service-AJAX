@@ -1,0 +1,43 @@
+{% extends "layouts/base_layout.html" %}
+{% block main %}
+
+	<section class = "card card-default w-50 mx-auto mb-10">
+		{% if error %}
+			<div class = "alert alert-danger">
+				{{ error }}
+			</div>
+		{% endif %}
+		<h4 class="text-dark ml-4 mt-4"> Задача № {{ task.id }} </h4>
+		<form action = "/task" method = "PATCH" id="update-task-form" class = "card-body">
+			<input type="hidden" value={{ task.id }} name="id"> 
+			<div class = "form-group">
+				<label for = "title-input">
+					Заголовок:
+				</label>
+				<input type = "text" name = "title-input" class = "form-control" id = "title-input" placeholder = "Заголовок задачи" value = {{ task.title }}>
+			</div>
+			<div class = "form-group">
+				<label for = "description-input">
+					Описание:
+				</label>
+				<input type = "text" name = "description-input" class = "form-control" id = "description-input" value = "{{ task.description }}">
+			</div>
+			<div class = "form-group ml-4">
+				<input type = "checkbox" name = "status-input" class = "form-check-input"
+				{% if task.status == 1 %} checked {% else %} unchecked {%endif%} id = "status-input" placeholder = "Статус задачи">
+				<label class="form-check-label" for = "status-input">
+					Выполнена:
+				</label>
+			</div>
+			<button type = "submit" class = "btn btn-primary btn-info px-5">
+				Обновить
+			</button>
+		</form>
+	</section>
+	<h5 class="text-dark mt-5">
+		Комментарии:
+	</h5>
+	<section class="comments" id="comments">
+    </section>
+
+{% endblock %}
